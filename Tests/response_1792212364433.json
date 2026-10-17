@@ -1,0 +1,40 @@
+[
+  {
+    "venue_id": "v101",
+    "name": "Piazza Espresso Bar",
+    "address": "Via Roma 12, Milan, Italy",
+    "latitude": 45.465199999999996,
+    "longitude": 9.190999999999999,
+    "distance_meters": 135.8,
+    "must_try_items": [
+      {
+        "item_name": "Pistachio Cornetto",
+        "category": "Pastry",
+        "social_score": 9.8,
+        "trending_reason": "Viral on Instagram Reels with 50K+ saves this month"
+      },
+      {
+        "item_name": "Shakerato Espresso",
+        "category": "Coffee",
+        "social_score": 9.2,
+        "trending_reason": "Top recommended local summer coffee drink"
+      }
+    ]
+  },
+  {
+    "venue_id": "v102",
+    "name": "Trattoria del Centro",
+    "address": "Piazza Duomo 5, Milan, Italy",
+    "latitude": 45.462199999999996,
+    "longitude": 9.1915,
+    "distance_meters": 251.3,
+    "must_try_items": [
+      {
+        "item_name": "Risotto alla Milanese",
+        "category": "Main Course",
+        "social_score": 9.6,
+        "trending_reason": "Consistently tagged as the best saffron risotto in town"
+      }
+    ]
+  }
+]
