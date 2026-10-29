@@ -1,61 +1,111 @@
-# travel-buddy
+# Vyoma Travel Discovery App
 
-# Company: Vyoma LLC
-
-# Project: Travel Buddy - Location-Based Culinary & Spatial Recommendation Platform
+A location-based travel discovery application designed to help travelers explore local food, coffee, and drinks at their destinations.
 
 ## Project Overview
 
-This repository contains the core software architecture and backend development for a location-based mobile application created under **Vyoma LLC**. The platform automates the aggregation and discovery of trending local food, beverage, and venue recommendations by parsing location-based social media data and mapping relevant spatial trends to real-world architectural and geographic coordinates.
+Travelers often spend considerable time searching across multiple platforms to find local foods, coffee shops, and drinks worth trying. Vyoma aims to simplify this discovery process by organizing place information and recommendations into a location-based experience.
 
-Designed to eliminate decision fatigue for modern travelers, the platform bridges **Computer Science, spatial computing, and urban data analysis** to surface authentic, highly recommended culinary experiences relative to a user's real-time geographic location.
+The initial product will focus on searching by destination, filtering by category, and presenting relevant places using permitted data sources.
 
----
+## Project Objectives
 
-## Technical Stack & System Architecture
+- Develop a location-based place discovery experience.
+- Organize places by category and geographic location.
+- Evaluate permitted data sources for place and recommendation information.
+- Design a maintainable software architecture.
+- Build and test an initial application prototype.
 
-### 1. Mobile & Web Frontend
+## Initial Technology Stack
 
-- **Framework:** Cross-platform Mobile Client (Flutter / React Native)
-- **Core Features:** Interactive spatial map interface, real-time location tracking, filtered venue discovery feeds, and dynamic user preference management.
+| Component            | Proposed Technology         |
+| -------------------- | --------------------------- |
+| Backend              | Python and FastAPI          |
+| Frontend             | HTML, CSS, JavaScript       |
+| Data validation      | Pydantic                    |
+| Initial data storage | Sample data for prototyping |
+| Testing              | Pytest                      |
+| Version control      | Git and GitHub              |
+| Future database      | To be evaluated             |
 
-### 2. Backend Services & Data Pipelines
+These technologies are initial proposals and may change as the requirements evolve.
 
-- **Runtime / Framework:** Python (FastAPI/Flask) / Go
-- **API Integrations:** Social Media APIs (Instagram Graph API, TikTok Research API), Geocoding & Spatial Services (Mapbox / Google Maps Platform)
-- **Core Responsibilities:** Location-based query processing, API ingestion pipelines, spatial bounding box filtering, and data extraction.
+## Planned MVP Features
 
-### 3. Database & Spatial Indexing
+1. Search for places by city or destination.
+2. Filter places by food, coffee, and drinks.
+3. Support geographic search using coordinates.
+4. Display place details and available source information.
+5. Integrate permitted external data sources after evaluating their terms.
+6. Provide a foundation for future recommendation ranking.
 
-- **Database Engine:** PostgreSQL with PostGIS extensions / Spatial Indexing Database
-- **Data Models:** Spatial entity relationships connecting user profiles, venue locations, geofenced bounds, and aggregated recommendation data.
+## Repository Structure
 
----
+```text
+travel-discovery-app/
+├── README.md
+├── docs/
+│   ├── requirements.md
+│   ├── user-stories.md
+│   ├── mvp-scope.md
+│   ├── architecture.md
+│   ├── data-model.md
+│   ├── data-source-evaluation.md
+│   └── work-log.md
+├── backend/
+├── frontend/
+├── tests/
+└── .gitignore
+```
 
-## Daily Engineering Activity & Development Roadmap
+This structure represents the proposed organization of the project. Directories and implementation files will be added as development progresses.
 
-### Day 1: Project Initialization & Groundwork (October 16, 2026)
+## Development Roadmap
 
-- [x] Formally initialized version control repository and project environment.
-- [x] Drafted initial technical architecture specification and system requirements.
-- [x] Defined high-level entity-relationship (ER) models for location and venue data structures.
-- [x] Conducted API documentation reviews for social media data integration and spatial mapping wrappers.
+### Phase 1: Requirements and Design
 
-# Documenting the current completed tasks here for now. Will have to organize them eventually
+- Analyze the user problem.
+- Define functional and non-functional requirements.
+- Design the initial architecture.
+- Develop the data model.
+- Evaluate possible data sources.
 
-### Planned Milestones - To Do (Sprint 1)
+### Phase 2: Prototype Development
 
-- [ ] Implement backend server scaffolding and environment configuration.
-- [ ] Design database schemas for spatial indexing and venue entities.
-- [ ] Build proof-of-concept API ingestion scripts for geocoded trend collection.
-- [ ] Develop preliminary UI wireframes for interactive location search.
+- Initialize the backend.
+- Implement the initial search API.
+- Develop category and geographic filtering.
+- Build a basic user interface.
+- Add automated tests.
 
----
+### Phase 3: Data Integration
 
-## Author & Compliance Information
+- Select an appropriate permitted data provider.
+- Implement data ingestion and validation.
+- Evaluate persistent database options.
+- Improve data quality and error handling.
 
-- **Developer:** Ssai Sanjanna Ganji
-- **Role:** Founder & Software Engineer
-- **Company:** Vyoma LLC (Iowa, USA)
-- **Degree Alignment:** Bachelor of Science in Computer Science - Iowa State University
-- **Employment Status:** Full-Time OPT Self-Employment (20+ Hours/Week)
+### Phase 4: Recommendation and User Experience
+
+- Explore ranking approaches.
+- Improve search relevance.
+- Design place-detail and saved-place experiences.
+- Evaluate performance and usability.
+
+## Data Usage Principles
+
+The application will use external data only after reviewing applicable terms, permissions, attribution requirements, storage restrictions, and commercial-use conditions.
+
+Social-media content will not be scraped or stored unless the applicable permissions and terms allow the intended use.
+
+## Current Status
+
+Initial planning and design.
+
+Features should be marked as implemented only after they have been developed and tested.
+
+## Work Documentation
+
+Technical decisions, design changes, implementation progress, test results, and actual work hours will be documented throughout development.
+
+See `docs/work-log.md` for the daily work-log template.
