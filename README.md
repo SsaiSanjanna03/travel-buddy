@@ -108,4 +108,4 @@ Features should be marked as implemented only after they have been developed and
 
 Technical decisions, design changes, implementation progress, test results, and actual work hours will be documented throughout development.
 
-See `docs/work-log.md` for the daily work-log template.
+See `docs/work-logs/` for the weekly and daily work-logs info
