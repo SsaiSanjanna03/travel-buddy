@@ -1,6 +1,27 @@
+# Python
 __pycache__/
-*.pyc
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.mypy_cache/
+
+# Virtual environments
 .venv/
+venv/
+env/
+
+# Environment variables and secrets
 .env
+.env.*
+
+# IDE settings
 .idea/
 .vscode/
+
+# Operating system
+.DS_Store
+Thumbs.db
+
+# Build artifacts
+build/
+dist/

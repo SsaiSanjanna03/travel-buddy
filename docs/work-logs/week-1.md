@@ -7,7 +7,7 @@
 - **Name:** Ssai Sanjanna Ganji
 - **Role:** Founder and Software Engineer
 - **Reporting period:** October 16, 2026 - October 22 2026
-- **Total hours worked:** 24
+- **Total hours worked:** 25
 - **Work location:** Principle office (Home)
 
 ## Weekly Objective
@@ -91,7 +91,7 @@ Establish the initial product requirements and technical design for a location-b
 
 ## Next Week's Objective
 
-Subject to the actual project plan, the next development period may focus on:
+Subject to the project plan, the next development period may focus on:
 
 - Establishing the development environment.
 - Implementing a basic health endpoint.

@@ -1,83 +1,101 @@
-import math
-from typing import List
-from app.models import LocationQuery, VenueResponse, RecommendedItem
+from math import asin, cos, radians, sin, sqrt
+from typing import Optional
+
+from app.models import Place
 
 
-def calculate_haversine_distance(lat1: float, lon1: float, lat2: float, lon2: float) -> float:
-    """
-    Calculate the great-circle distance between two points on the Earth in meters.
-    """
-    R = 6371000.0  # Earth radius in meters
-    phi1, phi2 = math.radians(lat1), math.radians(lat2)
-    delta_phi = math.radians(lat2 - lat1)
-    delta_lambda = math.radians(lon2 - lon1)
+# Fictional sample records for development only.
+# Replace them with verified, permitted data before production use.
+SAMPLE_PLACES = [
+    Place(
+        id=1,
+        name="Sample Coffee Shop",
+        city="Ames",
+        category="coffee",
+        latitude=42.03,
+        longitude=-93.62,
+        description="Fictional sample coffee listing.",
+        source="sample",
+    ),
+    Place(
+        id=2,
+        name="Sample Local Restaurant",
+        city="Ames",
+        category="food",
+        latitude=42.02,
+        longitude=-93.64,
+        description="Fictional sample restaurant listing.",
+        source="sample",
+    ),
+    Place(
+        id=3,
+        name="Sample Juice Bar",
+        city="Des Moines",
+        category="drinks",
+        latitude=41.59,
+        longitude=-93.62,
+        description="Fictional sample drinks listing.",
+        source="sample",
+    ),
+]
 
-    a = math.sin(delta_phi / 2) ** 2 + math.cos(phi1) * \
-        math.cos(phi2) * math.sin(delta_lambda / 2) ** 2
-    c = 2 * math.atan2(math.sqrt(a), math.sqrt(1 - a))
 
-    return R * c
+def distance_km(
+    lat1: float,
+    lon1: float,
+    lat2: float,
+    lon2: float,
+) -> float:
+    """Calculate approximate great-circle distance using the Haversine formula."""
+    earth_radius_km = 6371.0
+
+    lat1_rad = radians(lat1)
+    lat2_rad = radians(lat2)
+    delta_lat = radians(lat2 - lat1)
+    delta_lon = radians(lon2 - lon1)
+
+    haversine = (
+        sin(delta_lat / 2) ** 2
+        + cos(lat1_rad) * cos(lat2_rad) * sin(delta_lon / 2) ** 2
+    )
+    haversine = min(1.0, max(0.0, haversine))
+
+    return 2 * earth_radius_km * asin(sqrt(haversine))
 
 
-class RecommendationService:
-    @staticmethod
-    def get_nearby_must_tries(query: LocationQuery) -> List[VenueResponse]:
-        # Mock dataset representing aggregated social media venue trends
-        mock_venues = [
-            {
-                "venue_id": "v101",
-                "name": "Piazza Espresso Bar",
-                "address": "Via Roma 12, Milan, Italy",
-                "latitude": query.latitude + 0.001,
-                "longitude": query.longitude + 0.001,
-                "items": [
-                    RecommendedItem(
-                        item_name="Pistachio Cornetto",
-                        category="Pastry",
-                        social_score=9.8,
-                        trending_reason="Viral on Instagram Reels with 50K+ saves this month"
-                    ),
-                    RecommendedItem(
-                        item_name="Shakerato Espresso",
-                        category="Coffee",
-                        social_score=9.2,
-                        trending_reason="Top recommended local summer coffee drink"
-                    )
-                ]
-            },
-            {
-                "venue_id": "v102",
-                "name": "Trattoria del Centro",
-                "address": "Piazza Duomo 5, Milan, Italy",
-                "latitude": query.latitude - 0.002,
-                "longitude": query.longitude + 0.0015,
-                "items": [
-                    RecommendedItem(
-                        item_name="Risotto alla Milanese",
-                        category="Main Course",
-                        social_score=9.6,
-                        trending_reason="Consistently tagged as the best saffron risotto in town"
-                    )
-                ]
-            }
+def search_places(
+    city: Optional[str] = None,
+    category: Optional[str] = None,
+    lat: Optional[float] = None,
+    lon: Optional[float] = None,
+    radius_km: Optional[float] = None,
+) -> list[Place]:
+    """Filter sample places by city, category, and optional geographic radius."""
+    results = SAMPLE_PLACES.copy()
+
+    if city:
+        city_query = city.strip().casefold()
+        results = [
+            place for place in results
+            if place.city.casefold() == city_query
         ]
 
-        results = []
-        for venue in mock_venues:
-            dist = calculate_haversine_distance(
-                query.latitude, query.longitude, venue["latitude"], venue["longitude"]
-            )
-            if dist <= query.radius_meters:
-                results.append(
-                    VenueResponse(
-                        venue_id=venue["venue_id"],
-                        name=venue["name"],
-                        address=venue["address"],
-                        latitude=venue["latitude"],
-                        longitude=venue["longitude"],
-                        distance_meters=round(dist, 1),
-                        must_try_items=venue["items"]
-                    )
-                )
+    if category:
+        category_query = category.strip().casefold()
+        results = [
+            place for place in results
+            if place.category == category_query
+        ]
 
-        return results
+    if lat is not None and lon is not None and radius_km is not None:
+        results = [
+            place for place in results
+            if distance_km(
+                lat,
+                lon,
+                place.latitude,
+                place.longitude,
+            ) <= radius_km
+        ]
+
+    return results

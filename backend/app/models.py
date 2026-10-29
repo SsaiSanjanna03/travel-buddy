@@ -1,31 +1,25 @@
-from typing import List, Optional
-from pydantic import BaseModel, Field
+from typing import Literal
+
+from pydantic import BaseModel, Field, field_validator
 
 
-class LocationQuery(BaseModel):
-    latitude: float = Field(..., ge=-90.0, le=90.0,
-                            description="Latitude coordinate")
-    longitude: float = Field(..., ge=-180.0, le=180.0,
-                             description="Longitude coordinate")
-    radius_meters: Optional[int] = Field(
-        default=1000, ge=100, le=10000, description="Search radius in meters")
+PlaceCategory = Literal["food", "coffee", "drinks"]
 
 
-class RecommendedItem(BaseModel):
-    item_name: str = Field(..., description="Name of the food or drink")
-    category: str = Field(...,
-                          description="Category e.g., Coffee, Pasta, Gelato, Cocktail")
-    social_score: float = Field(
-        ..., description="Aggregated recommendation score from social signals")
-    trending_reason: str = Field(...,
-                                 description="Summary of why it is viral on social media")
+class Place(BaseModel):
+    id: int
+    name: str = Field(min_length=1, max_length=150)
+    city: str = Field(min_length=1, max_length=100)
+    category: PlaceCategory
+    latitude: float = Field(ge=-90, le=90)
+    longitude: float = Field(ge=-180, le=180)
+    description: str = Field(default="", max_length=1000)
+    source: str = Field(default="sample", min_length=1, max_length=100)
 
-
-class VenueResponse(BaseModel):
-    venue_id: str
-    name: str
-    address: str
-    latitude: float
-    longitude: float
-    distance_meters: float
-    must_try_items: List[RecommendedItem]
+    @field_validator("name", "city", "source")
+    @classmethod
+    def strip_required_text(cls, value: str) -> str:
+        value = value.strip()
+        if not value:
+            raise ValueError("Value cannot be blank")
+        return value
